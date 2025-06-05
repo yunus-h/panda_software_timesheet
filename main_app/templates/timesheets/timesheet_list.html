@@ -1,0 +1,46 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/timesheet_list.css' %}" />
+{% endblock %}
+{% block content %}
+<section class="page-header">
+    <h1>Timesheet List</h1>
+    <img src="{% static 'images/logo2.jpg' %}" alt="logo2" />
+    <img src="{% static 'images/logo5.jpg' %}" alt="logo1" />
+</section>
+
+<a href="{% url 'timesheet_create' %}" class="button">Add a new Timesheet</a>
+
+    {% if timesheets %} 
+        <table class="task-table">
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Employee Id</th>
+                    <th>Timesheet Date</th>
+                    <th>Total Hour</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for timesheet in timesheets %}
+                <tr>
+                    <td>{{ timesheet.employee.name }}</td>
+                    <td>{{ timesheet.employee.id }}</td>
+                    <td>{{ timesheet.timesheet_date }}</td>
+                    <td>10000</td>
+                    <td>
+                        <a href="{% url 'timesheet_detail' timesheet.id %}">View</a>
+                        <a href="{% url 'timesheet_update' timesheet.id %}">Update</a>
+                        <a href="{% url 'timesheet_delete' timesheet.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No timesheet available.</p>
+    {% endif %}
+
+{% endblock %}

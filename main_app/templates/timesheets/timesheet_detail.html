@@ -1,0 +1,65 @@
+{% extends '../base.html' %} 
+
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/timesheets/timesheet_detail.css' %}" />
+{% endblock %} 
+{% block content %}
+<section class="timesheet-container">
+    <div class="timesheet-details">
+        <div class="header-row">
+            <h1>
+                {{ timesheet.employee.name }} - <span class="title-small">({{ timesheet.employee.job_title }})</span>
+            </h1>
+            <h3 class="timesheet-date">
+                Timesheet Date : {{ timesheet.timesheet_date }} ({{ timesheet.timesheet_date|date:"l" }})
+            </h3>
+        </div>
+        <div class="timesheet-actions">
+            <a href="{% url 'timesheet_update' timesheet.id %}" class="btn warn">Edit the Timesheet Date</a>
+            <a href="{% url 'timesheet_delete' timesheet.id %}" class="btn danger">Delete This Timesheet</a>
+        </div>
+    </div>
+    <br>
+    <hr>
+    
+</section>
+
+<section class="timesheet-items">
+    <h3>Timesheet Items:</h3>
+    <a href="{% url 'timesheet_item_create' timesheet.id %}" class="btn add-item">Add a new Timesheet Item</a>
+
+    {% if timesheet.items %} 
+        <table class="task-table">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Project</th>
+                    <th>Hours Worked</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for timesheet_item in timesheet_items %}
+                <tr>
+                    <td>{{ items.task }}</td>
+                    <td>{{ items.task.project }}</td>
+                    <td>{{ items.hours_worked }}</td>
+                    <td>{{ items.description}}</td>
+                    <td>
+                        <a href="{% url 'timesheet_item_update' timesheet_item.id %}">Update</a>
+                        <a href="{% url 'timesheet_item_delete' timesheet_item.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No item!</p>
+    {% endif %}
+</section>
+{% endblock %}
+
+
+

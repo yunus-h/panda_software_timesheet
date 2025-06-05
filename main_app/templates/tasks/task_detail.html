@@ -1,0 +1,31 @@
+{% extends '../base.html' %} 
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/tasks/task_detail.css' %}" />
+{% endblock %} 
+{% block content %}
+<section class="task-container">
+  <div class="task-details">
+    <h1>Task : {{ task.task_name }}</h1>
+    <h2>Project: {{ task.project }}</h2>
+    <p>Task Description: {{ task.description }}</p>
+    <p>Task Start Date: {{ task.start_date }}</p>
+    <p>Task End Date: {{ task.end_date }}</p>
+    <p>Status : 
+        <strong>
+            {% if task.status %}
+                <span class="status-done">Done</span>
+            {% else %}
+                <span class="status-pending">Pending</span>
+            {% endif %}
+        </strong>
+    </p>
+
+    <div class="task-actions">
+        <a href="{% url 'task_update' task.id %}" class="btn warn">Edit</a>
+        <a href="{% url 'task_delete' task.id %}" class="btn danger">Delete</a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

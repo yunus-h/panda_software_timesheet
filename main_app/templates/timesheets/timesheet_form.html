@@ -1,0 +1,27 @@
+{% extends '../base.html' %} 
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}" />
+{% endblock %} 
+{% block content %}
+
+<div class="page-header">
+    
+  {% if timesheet %}
+        <h2>Edit {{timesheet.employee.name}}-timesheet date on {{ timesheet.timesheet_date }}</h2>
+  {% else %}
+        <h1>Add Timesheet</h1>
+  {% endif %}
+  
+  <img src="{% static 'images/logo2.jpg' %}" alt="logo2" />
+</div>
+
+<form action="" method="post" class="form-container">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <button type="submit" class="btn submit">Submit!</button>
+</form>
+
+{% endblock %}

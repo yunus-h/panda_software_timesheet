@@ -1,0 +1,28 @@
+{% extends '../base.html' %} 
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/employees/employee_detail.css' %}" />
+{% endblock %} 
+{% block content %}
+<section class="employee-container">
+  <div class="employee-img">
+    <img src="{{ employee.profile_pic }}" alt="pic_{{ employee.id}}_{{ employee.name }}" />
+  </div>
+  <div class="employee-details">
+    <h1>{{ employee.name }}</h1>
+    <h2>{{ employee.job_title }}</h2>
+    <p>Gender: {{ employee.gender }}</p>
+    <p>Start Date: {{ employee.start_date }}</p>
+    <p>Hourly Salary: ${{ employee.hourly_salary }}</p>
+    <p>email: {{ employee.email }}</p>
+    <p>Phone: {{ employee.phone }}</p>
+    <p>Address: {{ employee.address }}</p>
+
+    <div class="employee-actions">
+        <a href="{% url 'employee_update' employee.id %}" class="btn warn">Edit</a>
+        <a href="{% url 'employee_delete' employee.id %}" class="btn danger">Delete</a>
+        <a href="{% url 'employee_list' %}" class="btn back">Back to the List</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

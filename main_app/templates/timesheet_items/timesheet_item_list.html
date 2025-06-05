@@ -1,0 +1,35 @@
+
+<h3>Timesheet Items:</h3>
+<a href="{% url 'timesheet_item_create' %}" class = "button">Add a new Timesheet Item</a>
+
+    {% if timesheet_items %} 
+        <table class="task-table">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Project</th>
+                    <th>Hours Worked</th>
+                    <th>Minutes Worked</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for timesheet_item in timesheet_items %}
+                <tr>
+                    <td>{{ timesheet_item.task }}</td>
+                    <td>{{ timesheet_item.task.project }}</td>
+                    <td>{{ timesheet_item.hours_worked }}</td>
+                    <td>{{ timesheet_item.description}}</td>
+                    <td>
+                        <!-- <a href="{% url 'timesheet_item_detail' timesheet_item.id %}">View</a> -->
+                        <a href="{% url 'timesheet_item_update' timesheet_item.id %}">Update</a>
+                        <a href="{% url 'timesheet_item_delete' timesheet_item.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No item!</p>
+    {% endif %}
+

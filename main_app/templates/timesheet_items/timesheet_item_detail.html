@@ -1,0 +1,31 @@
+{% extends '../base.html' %} 
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/timesheet_items/timesheet_item_detail.css' %}" />
+{% endblock %} 
+{% block content %}
+<section class="timesheet_item-container">
+  <div class="timesheet_item-details">
+        <div class="header-row">
+            <h1>
+                {{ timesheet_item.employee.name }} - <span class="title-small">({{ timesheet_item.employee.job_title }})</span>
+            </h1>
+            <h3 class="timesheet_item-date">
+                Timesheet Date : {{ timesheet_item.timesheet_item_date }} ({{ timesheet_item.timesheet_item_date|date:"l" }})
+            </h3>
+        </div>
+    <div class="timesheet_item-actions">
+        <a href="{% url 'timesheet_item_update' timesheet_item.id %}" class="btn warn">Edit the Timesheet Date</a>
+        <a href="{% url 'timesheet_item_delete' timesheet_item.id %}" class="btn danger">Delete This Timesheet</a>
+    </div>
+    <br>
+    <hr>
+    <h3>Timesheet Items:</h3>
+
+    
+
+    
+
+  </div>
+</section>
+{% endblock %}

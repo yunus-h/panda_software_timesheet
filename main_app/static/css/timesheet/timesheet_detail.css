@@ -1,0 +1,65 @@
+.timesheet-container {
+  padding: 35px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.timesheet-details {
+  width: 98%;
+}
+
+.timesheet-actions {
+  margin-top: 20px;
+}
+
+.timesheet-details h1 {
+  font-size: var(--font-xxl);
+  margin: 15px 0 3px;
+}
+
+.timesheet-details h2 {
+  font-size: var(--font-xl);
+  margin: 0 0 10px;
+}
+
+.timesheet-details h3 {
+  margin: 20px 0 10px;
+  font-size: var(--font-l);
+}
+
+.timesheet-details p {
+  font-size: var(--font-reg);
+  margin: 5px 0;
+}
+
+.status-done {
+  color: green;
+}
+.status-pending {
+  color: red;
+}
+
+span .title-small {
+  font-size: 1.4rem;
+  color: #555;
+  font-weight: normal;
+}
+
+.header-row {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+}
+
+.header-row h1 {
+  margin: 0 16px 0 0;
+}
+
+.header-row .timesheet-date {
+  margin: 0;
+  font-size: var(--font-l);
+  font-weight: normal;
+  color: #444;
+}

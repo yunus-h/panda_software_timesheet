@@ -1,0 +1,9 @@
+{% extends '../base.html' %}
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <h1>Are you sure you wannt to delete {{timesheet_item.task}} ({{timesheet_item.task.project}}) for {{timesheet_item.hours_worked}} on {{timesheet.timesheet_date}}?</h1>
+    <button type="submit">Yes, Delete</button>
+    <a href="{% url 'timesheet_list' %}">Cancel</a>
+</form>
+{% endblock %}
