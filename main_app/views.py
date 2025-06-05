@@ -118,7 +118,7 @@ class TimesheetDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         timesheet = self.get_object()
         context['items'] = TimesheetItem.objects.exclude(
-            id__in=timesheet.timesheet_items.all().values_list('id')
+            id__in=timesheet.all().values_list('id')
         )
         return context
     

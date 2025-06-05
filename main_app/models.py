@@ -37,7 +37,7 @@ class Task(models.Model):
 class Timesheet(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     timesheet_date = models.DateField(default=date.today)
-    timesheet_items = models.ManyToManyField(Task, through='TimesheetItem')
+    # timesheet_items = models.ForeignKey(TimesheetItem, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f"{self.employee.name} on {self.timesheet_date}"
@@ -57,11 +57,14 @@ class Timesheet(models.Model):
 class TimesheetItem(models.Model): 
     timesheet = models.ForeignKey(Timesheet, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    hours_worked = models.DecimalField(max_digits=5, decimal_places= 0, default=0.00)
+    hours_worked = models.DecimalField(max_digits=5, decimal_places= 2, default=0.00)
     description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.timesheet.employee.name} works on {self.task.task_name} ({self.task.project}) - {self.hours_worked} hours on {self.timesheet.timesheet_date}"
+    
+    def total_hours_worked(self):
+        return sum(item.hours_worked for item in self.items.all())
     
     class Meta:
         unique_together = ['timesheet', 'task']
