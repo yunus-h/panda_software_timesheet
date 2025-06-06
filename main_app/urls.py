@@ -6,7 +6,7 @@ from .views import (
     TaskListView, TaskDetailView, TaskCreateView, TaskUpdateView, TaskDeleteView,
     TimesheetListView, TimesheetDetailView, TimesheetCreateView, TimesheetUpdateView, TimesheetDeleteView,
     TimesheetItemListView, TimesheetItemDetailView, TimesheetItemCreateView, TimesheetItemUpdateView, TimesheetItemDeleteView
-    , add_item_to_timesheet, remove_item_from_timesheet
+
     ) 
 
 urlpatterns = [
@@ -39,8 +39,7 @@ urlpatterns = [
     path('timesheets/<int:timesheet_id>/timesheetitems/<int:pk>/update', TimesheetItemUpdateView.as_view(), name='timesheet_item_update'),
     path('timesheets/<int:timesheet_id>/timesheetitems/<int:pk>/delete', TimesheetItemDeleteView.as_view(), name='timesheet_item_delete'),
 
-    path('timesheets/<int:timesheet_id>/add-item', add_item_to_timesheet, name='add_item_to_timesheet'),
-    path('timesheets/<int:timesheet_id>/remove-item/<int:timesheet_item_id>', remove_item_from_timesheet, name='remove_item_from_timesheet')
+  
 ]
 
 

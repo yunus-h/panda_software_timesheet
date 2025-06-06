@@ -6,8 +6,8 @@
 {% block content %}
 <section class="task-container">
   <div class="task-details">
-    <h1>Task : {{ task.task_name }}</h1>
-    <h2>Project: {{ task.project }}</h2>
+    <h2>Task : {{ task.task_name }}</h2>
+    <h3>Project: {{ task.project }}</h3>
     <p>Task Description: {{ task.description }}</p>
     <p>Task Start Date: {{ task.start_date }}</p>
     <p>Task End Date: {{ task.end_date }}</p>
@@ -22,8 +22,13 @@
     </p>
 
     <div class="task-actions">
-        <a href="{% url 'task_update' task.id %}" class="btn warn">Edit</a>
-        <a href="{% url 'task_delete' task.id %}" class="btn danger">Delete</a>
+        <div class="task-actions-left">
+            <a href="{% url 'task_update' task.id %}" class="btn warn">Edit</a>
+            <a href="{% url 'task_delete' task.id %}" class="btn danger">Delete</a>
+        </div>
+        <div class="task-actions-right">
+            <a href="{% url 'task_list' %}" class="btn common">Back to the List</a>
+        </div>
     </div>
 
   </div>

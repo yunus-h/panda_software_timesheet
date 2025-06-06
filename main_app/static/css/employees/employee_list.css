@@ -15,11 +15,30 @@
 .card-content {
   padding: 10px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  justify-content: center;
+  text-align: center;  /* Center text */
 }
 
 .usr-img {
   width: 100%;
   border-radius: var(--card-border-radius);
+  display: block;
+  margin: 0 auto 10px auto; /* Center image with margin below */
+}
+
+.card h2 {
+  margin: 10px 0 0 0;
+  font-size: var(--font-xl);
+  text-align: center;
+}
+
+.card p {
+  margin: 5px 0;
+  font-size: var(--font-reg);
+  text-align: center;
 }
 
 .card > a {
@@ -27,15 +46,6 @@
   color: var(--text-color);
 }
 
-.card h2 {
-  margin: 10px 0;
-  font-size: var(--font-xl);
-}
-
-.card p {
-  margin: 5px 0;
-  font-size: var(--font-reg);
-}
 
 a.button {
     padding: 1px 6px;

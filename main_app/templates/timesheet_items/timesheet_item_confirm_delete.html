@@ -2,8 +2,8 @@
 {% block content %}
 <form action="" method="POST">
     {% csrf_token %}
-    <h1>Are you sure you wannt to delete {{timesheet_item.task}} ({{timesheet_item.task.project}}) for {{timesheet_item.hours_worked}} on {{timesheet.timesheet_date}}?</h1>
-    <button type="submit">Yes, Delete</button>
-    <a href="{% url 'timesheet_list' %}">Cancel</a>
+    <h4>Are you sure you want to delete {{timesheet_item.task.task_name}} ({{timesheet_item.task.project}}) for {{timesheet_item.hours_worked}} on {{timesheet_item.timesheet.timesheet_date}}?</h4>
+    <button type="submit" class="btn danger">Yes, Delete</button>
+    <a href="{% url 'timesheet_detail' timesheet_item.timesheet.pk %}" class="btn common">Cancel</a>
 </form>
 {% endblock %}

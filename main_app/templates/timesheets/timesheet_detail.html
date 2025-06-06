@@ -8,28 +8,29 @@
 <section class="timesheet-container">
     <div class="timesheet-details">
         <div class="header-row">
-            <h1>
+            <h2>
                 {{ timesheet.employee.name }} - <span class="title-small">({{ timesheet.employee.job_title }})</span>
-            </h1>
+            </h2>
             <h3 class="timesheet-date">
                 Timesheet Date : {{ timesheet.timesheet_date }} ({{ timesheet.timesheet_date|date:"l" }})
             </h3>
+          
         </div>
         <div class="timesheet-actions">
-            <a href="{% url 'timesheet_update' timesheet.id %}" class="btn warn">Edit the Timesheet Date</a>
-            <a href="{% url 'timesheet_delete' timesheet.id %}" class="btn danger">Delete This Timesheet</a>
+            <a href="{% url 'timesheet_update' timesheet.id %}" class="btn warn">Edit Timesheet Date</a>
+            <a href="{% url 'timesheet_delete' timesheet.id %}" class="btn danger">Delete Timesheet</a>
         </div>
     </div>
     <br>
     <hr>
-    
 </section>
 
 <section class="timesheet-items">
     <h3>Timesheet Items:</h3>
-    <a href="{% url 'timesheet_item_create' timesheet.id %}" class="btn add-item">Add a new Timesheet Item</a>
-
-    {% if timesheet.items %} 
+    <h4><strong>Total Hours Worked:</strong> {{ timesheet.total_hours_worked }}</h4>
+    <a href="{% url 'timesheet_item_create' timesheet.id %}" class="btn add-item">Add Item</a>
+    <br>
+    {% if timesheet_items %} 
         <table class="task-table">
             <thead>
                 <tr>
@@ -43,20 +44,23 @@
             <tbody>
                 {% for timesheet_item in timesheet_items %}
                 <tr>
-                    <td>{{ items.task }}</td>
-                    <td>{{ items.task.project }}</td>
-                    <td>{{ items.hours_worked }}</td>
-                    <td>{{ items.description}}</td>
+                    <td>{{ timesheet_item.task }}</td>
+                    <td>{{ timesheet_item.task.project }}</td>
+                    <td>{{ timesheet_item.hours_worked }}</td>
+                    <td>{{ timesheet_item.description}}</td>
                     <td>
-                        <a href="{% url 'timesheet_item_update' timesheet_item.id %}">Update</a>
-                        <a href="{% url 'timesheet_item_delete' timesheet_item.id %}">Delete</a>
+                        <a href="{% url 'timesheet_item_update' timesheet.id timesheet_item.id %}" class="btn-edit-item">Edit</a>
+                    </td>
+                    <td>
+                        
+                        <a href="{% url 'timesheet_item_delete' timesheet.id timesheet_item.id %}" class="btn-delete-item">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     {% else %}
-        <p>No item!</p>
+        <p>No Timesheet item, please add item!</p>
     {% endif %}
 </section>
 {% endblock %}

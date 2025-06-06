@@ -11,7 +11,7 @@
   <img src="{% static 'images/logo5.jpg' %}" alt="logo1" />
 </section>
 
-<a href="{% url 'employee_create' %}" class = "button">Add a new Employee</a>
+<a href="{% url 'employee_create' %}" class = "btn common">Add Employee</a>
 
 <section class="card-container">
   {% for employee in employees %}
@@ -24,9 +24,8 @@
                 alt="pic_{{ employee.id}}_{{ employee.name }}"
                 />
             </div>
-            <h2 class="card-title">{{ employee.name }}</h2>
+            <h2 class="card-title">{{ employee.first_name }} {{ employee.last_name }}</h2>
             <p> {{ employee.job_title }} </p>
-            <p> $ {{ employee.hourly_salary }}/hour </p>
         </div>
     </a>
   </div>

@@ -77,7 +77,7 @@ class TaskDetailView(DetailView):
         task = self.get_object()
         context['task'] = self.object
         return context
-    
+
 class TaskCreateView(CreateView):
     model = Task
     template_name = './tasks/task_form.html'
@@ -101,7 +101,6 @@ class TaskDeleteView(DeleteView):
     context_object_name = 'task'
     success_url = reverse_lazy('task_list')
 
-
 # -----------------------TIMESHEET----------------------------------
 
 class TimesheetListView(ListView):
@@ -117,9 +116,7 @@ class TimesheetDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         timesheet = self.get_object()
-        context['items'] = TimesheetItem.objects.exclude(
-            id__in=timesheet.all().values_list('id')
-        )
+        context['timesheet_items'] = TimesheetItem.objects.filter(timesheet=timesheet)
         return context
     
 class TimesheetCreateView(CreateView): 
@@ -184,46 +181,12 @@ class TimesheetItemUpdateView(UpdateView):
     fields = '__all__'
 
     def get_success_url(self):
-        return reverse_lazy('timesheet_item_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('timesheet_detail', kwargs={'pk': self.object.timesheet.pk})
     
 class TimesheetItemDeleteView(DeleteView):
     model = TimesheetItem
     template_name = './timesheet_items/timesheet_item_confirm_delete.html'
     context_object_name = 'timesheet_item'
-    success_url = reverse_lazy('timesheet_item_list')
-
-# -----------------------ADD/REMOVE ITEM TO/FROM TIMESHEET----------------------------------
-
-def add_item_to_timesheet(request, timesheet_id, task_id):
-    timesheet = Timesheet.objects.get(id=timesheet_id)
-    task = Task.objects.get(id=task_id)
     
-    if request.method == 'POST':
-        hours_worked = request.POST.get('hours_worked', 0)
-        description = request.POST.get('description', '')
-        
-        item, created = TimesheetItem.objects.get_or_create(
-            timesheet=timesheet,
-            task=task,
-            defaults={'hours_worked': hours_worked, 'description': description}
-        )
-        
-        if not created:
-            item.hours_worked += float(hours_worked)
-            item.description += f" {description}"
-            item.save()
-        
-        return redirect('timesheet_detail', pk=timesheet.id)
-    
-    return render(request, 'add_item_to_timesheet.html', {'timesheet': timesheet, 'task': task})
-
-def remove_item_from_timesheet(request, timesheet_id, timesheet_item_id):
-    timesheet = Timesheet.objects.get(id=timesheet_id)
-    timesheet_item = TimesheetItem.objects.get(id=timesheet_item_id)
-    
-    if request.method == 'POST':
-        timesheet_item.delete()
-        return redirect('timesheet_detail', pk=timesheet.id)
-    
-    return render(request, 'remove_item_from_timesheet.html', {'timesheet': timesheet, 'timesheet_item': timesheet_item})
-# This code defines the views for the main application of a timesheet management system.
+    def get_success_url(self):
+        return reverse_lazy('timesheet_detail', kwargs={'pk': self.object.timesheet.pk})

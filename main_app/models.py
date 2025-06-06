@@ -1,6 +1,6 @@
 from django.db import models
 from datetime import date
-# from django.urls import reverse
+
 GENDERS = (
     ('Male','Male'),
     ('Female','Female'),
@@ -8,7 +8,8 @@ GENDERS = (
 )
 
 class Employee(models.Model):
-    name = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
     job_title = models.CharField(max_length=100)
     gender = models.CharField(max_length=50, choices=GENDERS, default='Other')
     start_date = models.DateField(default=date.today)
@@ -19,7 +20,7 @@ class Employee(models.Model):
     profile_pic = models.CharField(max_length=250)
     
     def __str__(self):
-        return f"{self.name} - {self.job_title}"
+        return f"{self.first_name} {self.last_name} - {self.job_title}"
     
 class Task(models.Model):
     task_name =  models.CharField(max_length=100)
@@ -27,7 +28,7 @@ class Task(models.Model):
     description = models.TextField(blank=True, null=True)
     start_date = models.DateField(default=date.today)
     end_date = models.DateField(default=date.today)
-    status = models.BooleanField(default=False)
+    completed = models.BooleanField(default=False)
 
     def __str__(self): 
         return f"{self.task_name} - {self.project} ({self.id})"
@@ -37,7 +38,6 @@ class Task(models.Model):
 class Timesheet(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     timesheet_date = models.DateField(default=date.today)
-    # timesheet_items = models.ForeignKey(TimesheetItem, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f"{self.employee.name} on {self.timesheet_date}"
@@ -45,26 +45,21 @@ class Timesheet(models.Model):
     def total_hours_worked(self):
         return sum(item.hours_worked for item in self.items.all())
     
-    # def calculate_pay(self):
-    #     total_hours = self.total_hours_worked()
-    #     total_minutes = self.total_minutes_worked()
-    #     total_time_in_hours = total_hours + (total_minutes / 60)
-    #     return total_time_in_hours * self.employee.hourly_salary
+    def calculate_pay(self):
+        total_hours = self.total_hours_worked()
+        return total_hours * self.employee.hourly_salary
     
     class Meta:
         unique_together = ['employee', 'timesheet_date']
 
 class TimesheetItem(models.Model): 
-    timesheet = models.ForeignKey(Timesheet, on_delete=models.CASCADE)
+    timesheet = models.ForeignKey(Timesheet, on_delete=models.CASCADE , related_name='items') 
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     hours_worked = models.DecimalField(max_digits=5, decimal_places= 2, default=0.00)
-    description = models.TextField(blank=True, null=True)
+    comment = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.timesheet.employee.name} works on {self.task.task_name} ({self.task.project}) - {self.hours_worked} hours on {self.timesheet.timesheet_date}"
-    
-    def total_hours_worked(self):
-        return sum(item.hours_worked for item in self.items.all())
     
     class Meta:
         unique_together = ['timesheet', 'task']

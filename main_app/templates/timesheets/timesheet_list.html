@@ -17,7 +17,6 @@
             <thead>
                 <tr>
                     <th>Employee</th>
-                    <th>Employee Id</th>
                     <th>Timesheet Date</th>
                     <th>Total Hour</th>
                     <th>Actions</th>
@@ -26,13 +25,16 @@
             <tbody>
                 {% for timesheet in timesheets %}
                 <tr>
-                    <td>{{ timesheet.employee.name }}</td>
-                    <td>{{ timesheet.employee.id }}</td>
+                    <td>{{ timesheet.employee.name }}</td>  
                     <td>{{ timesheet.timesheet_date }}</td>
-                    <td>10000</td>
+                    <td>{{ timesheet.total_hours_worked}}</td>
                     <td>
                         <a href="{% url 'timesheet_detail' timesheet.id %}">View</a>
+                    </td>
+                    <td>
                         <a href="{% url 'timesheet_update' timesheet.id %}">Update</a>
+                    </td>
+                    <td>
                         <a href="{% url 'timesheet_delete' timesheet.id %}">Delete</a>
                     </td>
                 </tr>
