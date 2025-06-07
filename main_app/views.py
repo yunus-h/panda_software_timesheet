@@ -84,7 +84,7 @@ class TaskDetailView(DetailView):
 class TaskCreateView(CreateView):
     model = Task
     template_name = './tasks/task_form.html'
-    fields = '__all__'
+    fields = ['task_name', 'project', 'description', 'start_date', 'end_date']
 
     def get_success_url(self):
         return reverse_lazy('task_detail', kwargs={'pk': self.object.pk})

@@ -32,7 +32,7 @@
       <td>{{ task.start_date }}</td>
       <td>{{ task.end_date }}</td>
       <td>
-        {% if task.status %}
+        {% if task.completed %}
           <span class="status-done">Done</span>
         {% else %}
           <span class="status-pending">Pending</span>
