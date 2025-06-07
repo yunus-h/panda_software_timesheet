@@ -1,17 +1,16 @@
-{% extends '../base.html' %} 
+{% extends '../main_app/base.html' %}
 {% load static %} 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/tasks/task_detail.css' %}" />
 {% endblock %} 
 {% block content %}
-<section class="task-container">
-  <div class="task-details">
-    <h2>Task : {{ task.task_name }}</h2>
-    <h3>Project: {{ task.project }}</h3>
-    <p>Task Description: {{ task.description }}</p>
-    <p>Task Start Date: {{ task.start_date }}</p>
-    <p>Task End Date: {{ task.end_date }}</p>
-    <p>Status : 
+<section class="detail-container">
+  <div class="detail">
+    <h2><strong>Task:</strong> {{ task.task_name }}</h2>
+    <h3><strong>Project:</strong> {{ task.project }}</h3>
+    <p><strong>Start Date:</strong> {{ task.start_date }}</p>
+    <p><strong>DeadLine:</strong> {{ task.end_date }}</p>
+    <p><strong>Status: </strong>
         <strong>
             {% if task.status %}
                 <span class="status-done">Done</span>
@@ -20,13 +19,14 @@
             {% endif %}
         </strong>
     </p>
-
-    <div class="task-actions">
-        <div class="task-actions-left">
+    <p><strong>Task Description:</strong> {{ task.description }}</p>
+    <br>
+    <div class="action">
+        <div class="action-left">
             <a href="{% url 'task_update' task.id %}" class="btn warn">Edit</a>
             <a href="{% url 'task_delete' task.id %}" class="btn danger">Delete</a>
         </div>
-        <div class="task-actions-right">
+        <div class="action-right">
             <a href="{% url 'task_list' %}" class="btn common">Back to the List</a>
         </div>
     </div>

@@ -13,9 +13,9 @@ table {
 th {
   text-align: left;
   padding: 6px 20px 0 0;
-  font-weight: normal;
+  font-weight: 500;
   vertical-align: top;
-  font-size: var(--font-reg);
+  font-size: var(--font-m);
 }
 
 td {
@@ -25,11 +25,11 @@ td {
 td > * {
   width: 100%;
   padding: 2px 4px;
-  font-size: var(--font-l);
+  font-size: var(--font-m);
 }
 
 td > textarea {
-  height: calc(4 * var(--font-l) + 8px);
+  height: calc(4 * var(--font-m));
   font-family: inherit;
 }
 

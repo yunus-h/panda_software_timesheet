@@ -1,7 +1,6 @@
 from django.urls import path
-# from . import views  
 from .views import (
-    HomeView, AboutView, ContactView, HelpView,
+    HomeView, AboutView, ContactView, HelpView,PayView,
     EmployeeListView, EmployeeDetailView, EmployeeCreateView, EmployeeUpdateView, EmployeeDeleteView, 
     TaskListView, TaskDetailView, TaskCreateView, TaskUpdateView, TaskDeleteView,
     TimesheetListView, TimesheetDetailView, TimesheetCreateView, TimesheetUpdateView, TimesheetDeleteView,
@@ -14,6 +13,7 @@ urlpatterns = [
     path('about/', AboutView.as_view(), name='about'),
     path('contact/', ContactView.as_view(), name='contact'),
     path('help/', HelpView.as_view(), name='help'),
+    path('pay/', PayView.as_view(), name='pay'),
 
     path('employees/', EmployeeListView.as_view(), name='employee_list'),
     path('employees/create', EmployeeCreateView.as_view(), name='employee_create'),
@@ -38,8 +38,6 @@ urlpatterns = [
     path('timesheets/<int:timesheet_id>/timesheetitems/<int:pk>', TimesheetItemDetailView.as_view(), name='timesheet_item_detail'),
     path('timesheets/<int:timesheet_id>/timesheetitems/<int:pk>/update', TimesheetItemUpdateView.as_view(), name='timesheet_item_update'),
     path('timesheets/<int:timesheet_id>/timesheetitems/<int:pk>/delete', TimesheetItemDeleteView.as_view(), name='timesheet_item_delete'),
-
-  
 ]
 
 

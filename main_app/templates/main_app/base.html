@@ -1,0 +1,73 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/jpg" href="{% static 'images/logo.jpg' %}" />
+    <title>Timesheet</title>
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+
+    {% block head %} 
+    {% endblock %}
+  </head>
+
+  <body>
+    <header>
+      <div class="header-logo-container">
+        <a href="/">
+          <img src="{% static 'images/panda_software_logo.jpg' %}" alt="Logo" />
+        </a>
+      </div>
+
+      
+      <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li> |
+            <li><a href="{% url 'employee_list' %}">Employees</a></li> |
+            <li><a href="{% url 'task_list' %}">Tasks</a></li> |
+            <li><a href="{% url 'timesheet_list' %}">Timesheets</a></li> |
+            <li><a href="{% url 'about' %}">About</a></li> |
+            <li><a href="{% url 'help' %}">Help</a></li> |
+            <li><a href="{% url 'contact' %}">Contact</a></li> |
+        </ul>
+
+        <div class="theme-toggle-container">
+          <label for="theme-toggle" class="theme-toggle-label">
+            <span class="theme-label"> 🌞</span>
+            <input type="checkbox" id="theme-toggle" onchange="toggleTheme()" />
+            <span class="theme-toggle-slider">
+              <span id="toggle-knob" class="theme-toggle-knob"></span>
+            </span>
+            <span class="theme-label">🌙</span>
+          </label>
+        </div>
+
+      </nav>
+    </header>
+    <main>
+     {% block content %} 
+     {% endblock %}
+      <script>
+        function toggleTheme() {
+          const isNight = document.getElementById('theme-toggle').checked;
+          document.body.className = isNight ? 'night-mode' : '';
+        }
+        
+      
+        document.addEventListener('DOMContentLoaded', function() {
+          const isNight = localStorage.getItem('night-mode') === 'true';
+          document.getElementById('theme-toggle').checked = isNight;
+          toggleTheme();
+        });
+        document.getElementById('theme-toggle').addEventListener('change', function() {
+          localStorage.setItem('night-mode', this.checked);
+        });
+      </script>
+     </main>
+  </body>
+</html>
+

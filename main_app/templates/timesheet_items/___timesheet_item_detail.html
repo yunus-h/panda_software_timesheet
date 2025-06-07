@@ -1,4 +1,4 @@
-{% extends '../base.html' %} 
+{% extends '../main_app/base.html' %}
 {% load static %} 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/timesheet_items/timesheet_item_detail.css' %}" />
@@ -8,7 +8,7 @@
   <div class="timesheet_item-details">
         <div class="header-row">
             <h1>
-                {{ timesheet_item.employee.name }} - <span class="title-small">({{ timesheet_item.employee.job_title }})</span>
+                {{ timesheet_item.employee.first_name }} {{timesheet_item.employee.last_name}} - <span class="title-small">({{ timesheet_item.employee.job_title }})</span>
             </h1>
             <h3 class="timesheet_item-date">
                 Timesheet Date : {{ timesheet_item.timesheet_item_date }} ({{ timesheet_item.timesheet_item_date|date:"l" }})

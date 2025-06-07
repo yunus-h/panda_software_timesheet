@@ -8,16 +8,19 @@ from .models import Employee, Task, Timesheet, TimesheetItem
 
 
 class HomeView(TemplateView): 
-    template_name = 'home.html'
+    template_name = 'main_app/home.html'
 
 class AboutView(TemplateView):
-    template_name = 'about.html'
+    template_name = 'main_app/about.html'
 
 class ContactView(TemplateView):
-    template_name = 'contact.html'
+    template_name = 'main_app/contact.html'
 
 class HelpView(TemplateView):
-    template_name = 'help.html'
+    template_name = 'main_app/help.html'
+
+class PayView(TemplateView):
+    template_name = 'main_app/pay.html'
 
 # -----------------------EMPLOYEE----------------------------------
 
@@ -142,6 +145,11 @@ class TimesheetDeleteView(DeleteView):
     context_object_name = 'timesheet'
     success_url = reverse_lazy('timesheet_list')
 
+def timesheet_list(request):
+    timesheets = Timesheet.objects.all()
+    for t in timesheets:
+        t.formatted_pay = "${:,.2f}".format(float(t.calculate_pay()))
+    return render(request, 'timesheets/timesheet_list.html', {'timesheets': timesheets})
 # -----------------------TIMESHEET ITEM----------------------------------
 
 class TimesheetItemListView(ListView):
@@ -163,8 +171,17 @@ class TimesheetItemDetailView(DetailView):
 class TimesheetItemCreateView(CreateView):
     model = TimesheetItem
     template_name = './timesheet_items/timesheet_item_form.html'
-    fields = ['task', 'hours_worked', 'description']
+    fields = ['task', 'hours_worked', 'comment']
     context_object_name = 'timesheet_item'
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        timesheet_id = self.kwargs.get('timesheet_id')
+        # Get tasks already used in this timesheet
+        used_tasks = TimesheetItem.objects.filter(timesheet_id=timesheet_id).values_list('task_id', flat=True)
+        # Exclude those tasks from the queryset
+        form.fields['task'].queryset = Task.objects.exclude(id__in=used_tasks)
+        return form
 
     def form_valid(self, form):
         timesheet_id = self.kwargs.get('timesheet_id')

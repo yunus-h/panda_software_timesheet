@@ -1,4 +1,4 @@
-{% extends '../base.html' %} 
+{% extends '../main_app/base.html' %}
 {% load static %} 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/tasks/task_list.css' %}" />
@@ -8,12 +8,12 @@
 <section class="page-header">
   <h1>Task List</h1>
   <img src="{% static 'images/logo2.jpg' %}" alt="logo2" />
-  <img src="{% static 'images/logo5.jpg' %}" alt="logo1" />
+  <img src="{% static 'images/logo.jpg' %}" alt="logo" />
 </section>
 
-<a href="{% url 'task_create' %}" class="btn common">Add a new Task</a>
+<a href="{% url 'task_create' %}" class="btn common">Add Task</a>
 
-<table class="task-table">
+<table class="table-reg">
   <thead>
     <tr>
       <th>Task Name</th>
@@ -21,7 +21,7 @@
       <th>Start Date</th>
       <th>Deadline</th>
       <th>Status</th>
-      <th>Details</th>
+      <th>Detail</th>
     </tr>
   </thead>
   <tbody>
@@ -39,7 +39,7 @@
         {% endif %}
       </td>
       <td>
-        <a href="{% url 'task_detail' task.id %}">View</a>
+        <a href="{% url 'task_detail' task.id %}" class = "common-link">View</a>
       </td>
     </tr>
     {% endfor %}

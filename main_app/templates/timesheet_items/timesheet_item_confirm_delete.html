@@ -1,8 +1,8 @@
-{% extends '../base.html' %}
+{% extends '../main_app/base.html' %}
 {% block content %}
 <form action="" method="POST">
     {% csrf_token %}
-    <h4>Are you sure you want to delete {{timesheet_item.task.task_name}} ({{timesheet_item.task.project}}) for {{timesheet_item.hours_worked}} on {{timesheet_item.timesheet.timesheet_date}}?</h4>
+    <h4>Are you sure you want to delete <span class="delete_thing">{{timesheet_item.task.task_name}} ({{timesheet_item.task.project}}) for {{timesheet_item.hours_worked}} on {{timesheet_item.timesheet.timesheet_date}}</span>?</h4>
     <button type="submit" class="btn danger">Yes, Delete</button>
     <a href="{% url 'timesheet_detail' timesheet_item.timesheet.pk %}" class="btn common">Cancel</a>
 </form>

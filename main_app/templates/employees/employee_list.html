@@ -1,4 +1,6 @@
-{% extends '../base.html' %} {% load static %} {% block head %}
+{% extends '../main_app/base.html' %}
+{% load static %} 
+{% block head %}
 <link
   rel="stylesheet"
   href="{% static 'css/employees/employee_list.css' %}"
@@ -8,7 +10,7 @@
 <section class="page-header">
   <h1>Employee List</h1>
   <img src="{% static 'images/logo2.jpg' %}" alt="logo2" />
-  <img src="{% static 'images/logo5.jpg' %}" alt="logo1" />
+  <img src="{% static 'images/logo.jpg' %}" alt="logo" />
 </section>
 
 <a href="{% url 'employee_create' %}" class = "btn common">Add Employee</a>

@@ -1,9 +1,9 @@
-{% extends '../base.html' %}
+{% extends '../main_app/base.html' %}
 {% block content %}
 <form action="" method="POST">
     {% csrf_token %}
-    <h1>Are you sure you wannt to delete {{timesheet.employee.name}} timesheet on {{timesheet.timesheet_date}}?</h1>
-    <button type="submit">Yes, Delete</button>
-    <a href="{% url 'timesheet_list' %}">Cancel</a>
+    <h3>Are you sure you wannt to delete <span class="delete-thing">{{timesheet.employee.first_name}} {{timesheet.employee.last_name}}</span> timesheet on <span class="delete-thing">{{timesheet.timesheet_date}}</span>?</h3>
+    <button type="submit" class="btn danger">Yes, Delete</button>
+    <a href="{% url 'timesheet_list' %}" class="btn common">Cancel</a>
 </form>
 {% endblock %}

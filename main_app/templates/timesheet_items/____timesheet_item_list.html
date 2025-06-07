@@ -21,7 +21,6 @@
                     <td>{{ timesheet_item.hours_worked }}</td>
                     <td>{{ timesheet_item.description}}</td>
                     <td>
-                        <!-- <a href="{% url 'timesheet_item_detail' timesheet_item.id %}">View</a> -->
                         <a href="{% url 'timesheet_item_update' timesheet_item.id %}">Update</a>
                         <a href="{% url 'timesheet_item_delete' timesheet_item.id %}">Delete</a>
                     </td>

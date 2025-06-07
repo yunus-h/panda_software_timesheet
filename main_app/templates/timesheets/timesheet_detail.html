@@ -1,15 +1,15 @@
-{% extends '../base.html' %} 
-
+{% extends '../main_app/base.html' %}
+{% load humanize %}
 {% load static %} 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/timesheets/timesheet_detail.css' %}" />
 {% endblock %} 
 {% block content %}
 <section class="timesheet-container">
-    <div class="timesheet-details">
+    <div class="detail">
         <div class="header-row">
             <h2>
-                {{ timesheet.employee.name }} - <span class="title-small">({{ timesheet.employee.job_title }})</span>
+                {{ timesheet.employee.first_name }} {{ timesheet.employee.last_name }} - <span class="title-small">({{ timesheet.employee.job_title }})</span>
             </h2>
             <h3 class="timesheet-date">
                 Timesheet Date : {{ timesheet.timesheet_date }} ({{ timesheet.timesheet_date|date:"l" }})
@@ -26,34 +26,38 @@
 </section>
 
 <section class="timesheet-items">
-    <h3>Timesheet Items:</h3>
-    <h4><strong>Total Hours Worked:</strong> {{ timesheet.total_hours_worked }}</h4>
-    <a href="{% url 'timesheet_item_create' timesheet.id %}" class="btn add-item">Add Item</a>
+    <div class="timesheet-items-header">
+            <h3>Timesheet Items:</h3>
+            <h4><strong>Total Hours Worked:</strong> {{ timesheet.total_hours_worked }}</h4>
+    </div>
+    
+    
+    <a href="{% url 'timesheet_item_create' timesheet.id %}" class="btn common">Add Item</a>
     <br>
     {% if timesheet_items %} 
-        <table class="task-table">
+        <table class="table-reg">
             <thead>
                 <tr>
                     <th>Task</th>
                     <th>Project</th>
                     <th>Hours Worked</th>
-                    <th>Description</th>
-                    <th>Actions</th>
+                    <th>Comment</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
                 {% for timesheet_item in timesheet_items %}
                 <tr>
-                    <td>{{ timesheet_item.task }}</td>
+                    <td>{{ timesheet_item.task.task_name }}</td>
                     <td>{{ timesheet_item.task.project }}</td>
                     <td>{{ timesheet_item.hours_worked }}</td>
-                    <td>{{ timesheet_item.description}}</td>
+                    <td>{{ timesheet_item.comment}}</td>
                     <td>
-                        <a href="{% url 'timesheet_item_update' timesheet.id timesheet_item.id %}" class="btn-edit-item">Edit</a>
+                        <a href="{% url 'timesheet_item_update' timesheet.id timesheet_item.id %}" class="common-link">Edit</a>
                     </td>
                     <td>
-                        
-                        <a href="{% url 'timesheet_item_delete' timesheet.id timesheet_item.id %}" class="btn-delete-item">Delete</a>
+                        <a href="{% url 'timesheet_item_delete' timesheet.id timesheet_item.id %}" class="delete-link">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}

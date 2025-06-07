@@ -1,4 +1,4 @@
-{% extends '../base.html' %} 
+{% extends '../main_app/base.html' %}
 {% load static %} 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/employees/employee_detail.css' %}" />
@@ -8,20 +8,25 @@
   <div class="employee-img">
     <img src="{{ employee.profile_pic }}" alt="pic_{{ employee.id}}_{{ employee.name }}" />
   </div>
-  <div class="employee-details">
-    <h1>{{ employee.first_name }} {{ employee.last_name }}</h1>
-    <h2>{{ employee.job_title }}</h2>
-    <p>Gender: {{ employee.gender }}</p>
-    <p>Start Date: {{ employee.start_date }}</p>
-    <p>Hourly Salary: ${{ employee.hourly_salary }}</p>
-    <p>email: {{ employee.email }}</p>
-    <p>Phone: {{ employee.phone }}</p>
-    <p>Address: {{ employee.address }}</p>
 
-    <div class="employee-actions">
-        <a href="{% url 'employee_update' employee.id %}" class="btn warn">Edit</a>
-        <a href="{% url 'employee_delete' employee.id %}" class="btn danger">Delete</a>
-        <a href="{% url 'employee_list' %}" class="btn back">Back to the List</a>
+  <div class="detail">
+    <h2>{{ employee.first_name }} {{ employee.last_name }}</h2>
+    <h3>{{ employee.job_title }}</h3>
+    <p><strong>Gender:</strong> {{ employee.gender }}</p>
+    <p><strong>Start Date:</strong> {{ employee.start_date }}</p>
+    <p><strong>Hourly Salary:</strong> $ {{ employee.hourly_salary }}</p>
+    <p><strong>email:</strong> {{ employee.email }}</p>
+    <p><strong>Phone:</strong> {{ employee.phone }}</p>
+    <p><strong>Address:</strong> {{ employee.address }}</p>
+    <br>
+    <div class="action">
+        <div class ="action-left">
+          <a href="{% url 'employee_update' employee.id %}" class="btn warn">Edit</a>
+          <a href="{% url 'employee_delete' employee.id %}" class="btn danger">Delete</a>
+        </div>
+        <div class = "action-right">
+          <a href="{% url 'employee_list' %}" class="btn common">Back to the List</a>
+        </div>
     </div>
   </div>
 </section>
