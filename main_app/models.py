@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date
 
+
 GENDERS = (
     ('Male','Male'),
     ('Female','Female'),
